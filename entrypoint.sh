@@ -1,7 +1,15 @@
-# entrypoint.sh
-
 #!/bin/bash
 # Docker entrypoint script.
+
+# Compile the project
+mix deps.get
+mix do compile
+
+cd ./assets
+npm install
+npm rebuild node-sass
+
+cd ../
 
 # Wait until Postgres is ready
 while ! pg_isready -q -h $PGHOST -p $PGPORT -U $PGUSER

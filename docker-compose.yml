@@ -9,7 +9,8 @@ services:
     build:
       # Here we define that it should build from the current directory
       context: .
-    command: /bin/bash -c 'mix ecto.create && mix phx.server'
+    volumes:
+      - .:/app
     environment:
       # Variables to connect to our Postgres server
       PGUSER: postgres
