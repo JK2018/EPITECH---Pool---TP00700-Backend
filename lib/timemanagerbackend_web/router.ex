@@ -2,21 +2,30 @@ defmodule TimemanagerbackendWeb.Router do
   use TimemanagerbackendWeb, :router
 
   pipeline :browser do
-    plug :accepts, ["html"]
-    plug :fetch_session
-    plug :fetch_flash
-    plug :protect_from_forgery
-    plug :put_secure_browser_headers
+    plug(:accepts, ["html"])
+    plug(:fetch_session)
+    plug(:fetch_flash)
+    plug(:protect_from_forgery)
+    plug(:put_secure_browser_headers)
   end
 
   pipeline :api do
-    plug :accepts, ["json"]
+    plug(:accepts, ["json"])
   end
 
-  scope "/", TimemanagerbackendWeb do
-    pipe_through :browser
+  scope "/api", TimemanagerbackendWeb do
+    pipe_through(:api)
 
-    get "/", PageController, :index
+    resources("/users", UserController, except: [:new, :index])
+
+    resources("/workingtimes", UserController, except: [:new, :index])
+
+    resources("/clocks", UserController, only: [:show, :create])
+
+    # scope "/users", MyAppWeb do
+    #   # get("/:id", EventController, :action)
+    #   get("/", UserController, only: [:show])
+    # end
   end
 
   # Other scopes may use custom stacks.
@@ -35,8 +44,8 @@ defmodule TimemanagerbackendWeb.Router do
     import Phoenix.LiveDashboard.Router
 
     scope "/" do
-      pipe_through :browser
-      live_dashboard "/dashboard", metrics: TimemanagerbackendWeb.Telemetry
+      pipe_through(:browser)
+      live_dashboard("/dashboard", metrics: TimemanagerbackendWeb.Telemetry)
     end
   end
 end
