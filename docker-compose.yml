@@ -9,12 +9,12 @@ services:
     build:
       # Here we define that it should build from the current directory
       context: .
-    command: "mix phx.server"
+    command: /bin/bash -c 'mix ecto.create && mix phx.server'
     environment:
       # Variables to connect to our Postgres server
       PGUSER: postgres
       PGPASSWORD: postgres
-      PGDATABASE: hello_dev
+      PGDATABASE: timemanagerbackend_dev
       PGPORT: 5432
       # Hostname of our Postgres container
       PGHOST: db

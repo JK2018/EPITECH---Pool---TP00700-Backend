@@ -1,4 +1,4 @@
-# Hello
+# Timemanagerbackend
 
 To start your Phoenix server:
 

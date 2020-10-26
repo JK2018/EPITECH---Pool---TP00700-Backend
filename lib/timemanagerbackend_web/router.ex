@@ -1,5 +1,5 @@
-defmodule HelloWeb.Router do
-  use HelloWeb, :router
+defmodule TimemanagerbackendWeb.Router do
+  use TimemanagerbackendWeb, :router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -13,14 +13,14 @@ defmodule HelloWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", HelloWeb do
+  scope "/", TimemanagerbackendWeb do
     pipe_through :browser
 
     get "/", PageController, :index
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", HelloWeb do
+  # scope "/api", TimemanagerbackendWeb do
   #   pipe_through :api
   # end
 
@@ -36,7 +36,7 @@ defmodule HelloWeb.Router do
 
     scope "/" do
       pipe_through :browser
-      live_dashboard "/dashboard", metrics: HelloWeb.Telemetry
+      live_dashboard "/dashboard", metrics: TimemanagerbackendWeb.Telemetry
     end
   end
 end

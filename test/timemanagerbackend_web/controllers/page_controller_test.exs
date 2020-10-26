@@ -1,5 +1,5 @@
-defmodule HelloWeb.PageControllerTest do
-  use HelloWeb.ConnCase
+defmodule TimemanagerbackendWeb.PageControllerTest do
+  use TimemanagerbackendWeb.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get(conn, "/")

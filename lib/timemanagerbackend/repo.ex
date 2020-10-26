@@ -1,6 +1,6 @@
-defmodule Hello.Repo do
+defmodule Timemanagerbackend.Repo do
   use Ecto.Repo,
-    otp_app: :hello,
+    otp_app: :timemanagerbackend,
     adapter: Ecto.Adapters.Postgres
 
   def init(_, config) do

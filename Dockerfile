@@ -1,6 +1,8 @@
-FROM elixir:1.8.2-otp-22-alpine
+FROM elixir:1.8.2-otp-22
 # FROM node:latest
 
+RUN apt update && \
+    apt install -y postgresql-client inotify-tools nodejs
 
 # Create app directory and copy the Elixir projects into it
 RUN mkdir /app
@@ -16,4 +18,4 @@ RUN mix local.rebar --force
 # Compile the project
 RUN mix do compile
 
-CMD ["/app/entrypoint.sh"]
+CMD ["app/entrypoint.sh"]

@@ -1,5 +1,5 @@
-defmodule HelloWeb.ErrorView do
-  use HelloWeb, :view
+defmodule TimemanagerbackendWeb.ErrorView do
+  use TimemanagerbackendWeb, :view
 
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.

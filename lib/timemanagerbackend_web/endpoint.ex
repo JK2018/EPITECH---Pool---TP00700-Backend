@@ -1,16 +1,16 @@
-defmodule HelloWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :hello
+defmodule TimemanagerbackendWeb.Endpoint do
+  use Phoenix.Endpoint, otp_app: :timemanagerbackend
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
   @session_options [
     store: :cookie,
-    key: "_hello_key",
-    signing_salt: "7bkg7jpb"
+    key: "_timemanagerbackend_key",
+    signing_salt: "GhiYN/Wf"
   ]
 
-  socket "/socket", HelloWeb.UserSocket,
+  socket "/socket", TimemanagerbackendWeb.UserSocket,
     websocket: true,
     longpoll: false
 
@@ -22,7 +22,7 @@ defmodule HelloWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :hello,
+    from: :timemanagerbackend,
     gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
@@ -32,7 +32,7 @@ defmodule HelloWeb.Endpoint do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
     plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
-    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :hello
+    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :timemanagerbackend
   end
 
   plug Phoenix.LiveDashboard.RequestLogger,
@@ -50,5 +50,5 @@ defmodule HelloWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug HelloWeb.Router
+  plug TimemanagerbackendWeb.Router
 end

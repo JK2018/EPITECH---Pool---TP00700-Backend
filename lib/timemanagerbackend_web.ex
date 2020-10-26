@@ -1,12 +1,12 @@
-defmodule HelloWeb do
+defmodule TimemanagerbackendWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use HelloWeb, :controller
-      use HelloWeb, :view
+      use TimemanagerbackendWeb, :controller
+      use TimemanagerbackendWeb, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -19,19 +19,19 @@ defmodule HelloWeb do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: HelloWeb
+      use Phoenix.Controller, namespace: TimemanagerbackendWeb
 
       import Plug.Conn
-      import HelloWeb.Gettext
-      alias HelloWeb.Router.Helpers, as: Routes
+      import TimemanagerbackendWeb.Gettext
+      alias TimemanagerbackendWeb.Router.Helpers, as: Routes
     end
   end
 
   def view do
     quote do
       use Phoenix.View,
-        root: "lib/hello_web/templates",
-        namespace: HelloWeb
+        root: "lib/timemanagerbackend_web/templates",
+        namespace: TimemanagerbackendWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller,
@@ -54,7 +54,7 @@ defmodule HelloWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import HelloWeb.Gettext
+      import TimemanagerbackendWeb.Gettext
     end
   end
 
@@ -66,9 +66,9 @@ defmodule HelloWeb do
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
-      import HelloWeb.ErrorHelpers
-      import HelloWeb.Gettext
-      alias HelloWeb.Router.Helpers, as: Routes
+      import TimemanagerbackendWeb.ErrorHelpers
+      import TimemanagerbackendWeb.Gettext
+      alias TimemanagerbackendWeb.Router.Helpers, as: Routes
     end
   end
 
