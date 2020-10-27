@@ -1,0 +1,11 @@
+stages:
+  - staging
+
+Build My App:
+  stage: staging
+  #   before_script:
+  #     - yarn config set cache-folder .yarn
+  #     - yarn install
+  script:
+    - apt update
+    - echo `Je build mais je n'ai rien à build`
