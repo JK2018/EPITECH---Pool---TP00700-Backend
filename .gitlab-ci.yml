@@ -1,11 +1,47 @@
 stages:
+  - build
   - staging
 
 Build My App:
-  stage: staging
+  stage: build
   #   before_script:
   #     - yarn config set cache-folder .yarn
   #     - yarn install
   script:
     - apt update
     - echo `Je build mais je n'ai rien à build`
+
+Deploy to Staging:
+  stage: staging
+  before_script:
+   # Generates to connect to the AWS unit the SSH key.
+  #  - mkdir -p ~/.ssh
+  #  - echo -e “$SSH_PRIVATE_KEY” > ~/.ssh/id_rsa
+  #  # Sets the permission to 600 to prevent a problem with AWS
+  #  # that it’s too unprotected.
+  #  - chmod 600 ~/.ssh/id_rsa
+  #  - ‘[[ -f /.dockerenv ]] && echo -e “Host *\n\tStrictHostKeyChecking no\n\n” > ~/.ssh/config’
+script:
+     - bash ./gitlab-deploy/.gitlab-deploy.staging.sh
+  environment:
+    name: staging
+  # Exposes a button that when clicked take you to the defined URL:
+    url: http://ec2-3-87-227-113.compute-1.amazonaws.com:4000
+
+# Deploy to Production:
+#   stage: production
+#   before_script:
+#   # Generates to connect to the AWS unit the SSH key.
+#     - mkdir -p ~/.ssh
+#     - echo -e "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+#   # Sets the permission to 600 to prevent a problem with AWS
+#   # that it's too unprotected
+#     - chmod 600  ~/.ssh/id_rsa
+#     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+#    script:
+#     - bash ./gitlab-deploy/.gitlab-deploy.prod.sh
+#    environment:
+#      name: production
+#      # Exposes a button that when clicked take you to the defined URL:
+#      url: http://ec2-13-59-173-91.us-east-2.compute.amazonaws.com:4000
+# when: manual
