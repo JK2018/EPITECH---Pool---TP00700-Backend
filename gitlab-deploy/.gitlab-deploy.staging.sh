@@ -9,5 +9,5 @@ array=(${string//,/ })
 for i in "${!array[@]}"; do
   echo "Deploying information to EC2 and Gitlab"
   echo "Deploy project on server ${array[i]}"
-  ssh ubuntu@${array[i]} "cd  /var/www/ && git pull origin master"
+  ssh ubuntu@${array[i]} "cd  /timemanagerbackend && git pull origin master"
 done
