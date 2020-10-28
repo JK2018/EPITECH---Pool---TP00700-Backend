@@ -3,6 +3,11 @@ defmodule TimemanagerbackendWeb.UserController do
   alias Timemanagerbackend.User
   alias Timemanagerbackend.Repo
 
+  def index(conn, _params) do
+    users = Repo.all(User)
+    json(conn, %{users: users})
+  end
+
   def create(conn, params) do
     ch = User.changeset(%User{}, params)
 

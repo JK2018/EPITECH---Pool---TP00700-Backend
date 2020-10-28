@@ -13,10 +13,15 @@ defmodule TimemanagerbackendWeb.Router do
     plug(:accepts, ["json"])
   end
 
+  scope "/", TimemanagerbackendWeb do
+    pipe_through(:browser)
+    get("/", PageController, :index)
+  end
+
   scope "/api", TimemanagerbackendWeb do
     pipe_through(:api)
 
-    resources("/users", UserController, except: [:new, :index])
+    resources("/users", UserController, except: [:new])
 
     resources("/workingtimes", UserController, except: [:new, :index])
 
