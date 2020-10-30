@@ -2,7 +2,7 @@ defmodule Timemanagerbackend.User do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @derive {Jason.Encoder, only: [:firstname, :lastname, :email, :password, :roles, :clock]}
+  @derive {Jason.Encoder, only: [:firstname, :lastname, :email, :password, :roles]}
 
   schema "users" do
     field(:username, :string)
@@ -11,7 +11,7 @@ defmodule Timemanagerbackend.User do
     field(:email, :string)
     field(:password, :string)
     belongs_to(:roles, Timemanagerbackend.Roles)
-    belongs_to(:clock, Timemanagerbackend.Clock)
+    # belongs_to(:clock, Timemanagerbackend.Clock)
 
     timestamps()
   end

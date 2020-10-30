@@ -5,12 +5,11 @@ defmodule TimemanagerbackendWeb.SessionsController do
   alias Timemanagerbackend.Roles
   alias Timemanagerbackend.Repo
 
-  def sign_up(conn, params) do
+  def sign_up(conn, body_params) do
     role = Repo.get_by(Roles, label: "user")
 
-    # user get user role by default
     ch =
-      User.changeset(%User{}, params)
+      User.changeset(%User{}, body_params)
       |> Ecto.Changeset.put_assoc(:roles, role)
 
     case Repo.insert(ch) do
@@ -24,7 +23,9 @@ defmodule TimemanagerbackendWeb.SessionsController do
     end
   end
 
-  def sign_in(conn, %{"email" => email, "password" => password} = _params) do
+  def sign_in(conn, body_params) do
+    %{"email" => email, "password" => password} = body_params
+
     if email == nil or password == nil do
       conn |> put_status(:bad_request) |> json(%{error: "Email or password is missing."})
     else
