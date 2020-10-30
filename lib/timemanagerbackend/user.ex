@@ -11,7 +11,7 @@ defmodule Timemanagerbackend.User do
     field(:email, :string)
     field(:password, :string)
     belongs_to(:roles, Timemanagerbackend.Roles)
-    # belongs_to(:clock, Timemanagerbackend.Clock)
+#    belongs_to(:clock, Timemanagerbackend.Clock)
 
     timestamps()
   end

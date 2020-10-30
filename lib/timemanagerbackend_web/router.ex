@@ -13,31 +13,37 @@ defmodule TimemanagerbackendWeb.Router do
     plug(TimemanagerbackendWeb.Plugs.Authenticate)
   end
 
-  scope "/sessions" do
-    post("/sign_up", TimemanagerbackendWeb.SessionsController, :sign_up)
-    post("/sign_in", TimemanagerbackendWeb.SessionsController, :sign_in)
-    # delete("/sign_out", TimemanagerbackendWeb.SessionsController, :sign_out)
+  pipeline :test do
+    plug CORSPlug, origin: "http://localhost:8080/"
+    plug :accepts, ["json"]
   end
 
-  scope "/test" do
-    get("/", TimemanagerbackendWeb.TestController, :index)
-    get("/roles", TimemanagerbackendWeb.TestController, :roles)
-  end
+   scope "/" do
+    pipe_through :test
+    scope "/sessions" do
+      post("/sign_up", TimemanagerbackendWeb.SessionsController, :sign_up)
+      post("/sign_in", TimemanagerbackendWeb.SessionsController, :sign_in)
+      # delete("/sign_out", TimemanagerbackendWeb.SessionsController, :sign_out)
+    end
 
-  # scope "/" do
-  #   get("/", PageController, :index)
-  # end
 
-  scope "/api", TimemanagerbackendWeb do
-    pipe_through(:authenticate)
+    scope "/api", TimemanagerbackendWeb do
+      pipe_through(:authenticate)
 
-    resources("/users", UserController, except: [:new])
-    # more routes
+      scope "/test" do
+        get("/", TimemanagerbackendWeb.TestController, :index)
+        get("/roles", TimemanagerbackendWeb.TestController, :roles)
+      end
 
-    resources("/workingtimes", UserController, except: [:new, :index])
+      resources("/users", UserController, except: [:new])
+      # more routes
 
-    resources("/clocks", ClockController, only: [:show, :create])
-  end
+      resources("/workingtimes", UserController, except: [:new, :index])
+
+      resources("/clocks", ClockController, only: [:show, :create])
+    end
+   end
+
 
   # Enables LiveDashboard only for development
   #

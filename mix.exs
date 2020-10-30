@@ -47,8 +47,9 @@ defmodule Timemanagerbackend.MixProject do
       {:jason, "~> 1.0"},
       {:joken, "~> 2.0"},
       {:faker, "~> 0.16"},
-      {:plug_cowboy, "~> 2.0"}
-    ]
+      {:plug_cowboy, "~> 2.0"},
+      {:cors_plug, "~> 2.0"}
+      ]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
