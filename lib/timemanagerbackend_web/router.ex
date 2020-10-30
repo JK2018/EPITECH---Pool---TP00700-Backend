@@ -9,23 +9,23 @@ defmodule TimemanagerbackendWeb.Router do
     plug(:put_secure_browser_headers)
   end
 
+  pipeline :cors_pipe do
+    plug(CORSPlug, origin: "http://localhost:8080/")
+    plug(:accepts, ["json"])
+  end
+
   pipeline :authenticate do
     plug(TimemanagerbackendWeb.Plugs.Authenticate)
   end
 
-  pipeline :test do
-    plug CORSPlug, origin: "http://localhost:8080/"
-    plug :accepts, ["json"]
-  end
+  scope "/" do
+    pipe_through(:cors_pipe)
 
-   scope "/" do
-    pipe_through :test
     scope "/sessions" do
       post("/sign_up", TimemanagerbackendWeb.SessionsController, :sign_up)
       post("/sign_in", TimemanagerbackendWeb.SessionsController, :sign_in)
       # delete("/sign_out", TimemanagerbackendWeb.SessionsController, :sign_out)
     end
-
 
     scope "/api", TimemanagerbackendWeb do
       pipe_through(:authenticate)
@@ -41,9 +41,10 @@ defmodule TimemanagerbackendWeb.Router do
       resources("/workingtimes", UserController, except: [:new, :index])
 
       resources("/clocks", ClockController, only: [:show, :create])
-    end
-   end
 
+      # resources("/teams", TeamController, only: [:show, :create])
+    end
+  end
 
   # Enables LiveDashboard only for development
   #
