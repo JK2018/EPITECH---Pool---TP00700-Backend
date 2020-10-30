@@ -9,34 +9,35 @@ defmodule TimemanagerbackendWeb.Router do
     plug(:put_secure_browser_headers)
   end
 
-  pipeline :api do
-    plug(:accepts, ["json"])
+  pipeline :authenticate do
+    plug(TimemanagerbackendWeb.Plugs.Authenticate)
   end
 
-  scope "/", TimemanagerbackendWeb do
-    pipe_through(:browser)
-    get("/", PageController, :index)
+  scope "/sessions" do
+    post("/sign_up", TimemanagerbackendWeb.SessionsController, :sign_up)
+    post("/sign_in", TimemanagerbackendWeb.SessionsController, :sign_in)
+    # delete("/sign_out", TimemanagerbackendWeb.SessionsController, :sign_out)
   end
+
+  scope "/test" do
+    get("/", TimemanagerbackendWeb.TestController, :index)
+    get("/roles", TimemanagerbackendWeb.TestController, :roles)
+  end
+
+  # scope "/" do
+  #   get("/", PageController, :index)
+  # end
 
   scope "/api", TimemanagerbackendWeb do
-    pipe_through(:api)
+    pipe_through(:authenticate)
 
     resources("/users", UserController, except: [:new])
+    # more routes
 
     resources("/workingtimes", UserController, except: [:new, :index])
 
-    resources("/clocks", UserController, only: [:show, :create])
-
-    # scope "/users", MyAppWeb do
-    #   # get("/:id", EventController, :action)
-    #   get("/", UserController, only: [:show])
-    # end
+    resources("/clocks", ClockController, only: [:show, :create])
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", TimemanagerbackendWeb do
-  #   pipe_through :api
-  # end
 
   # Enables LiveDashboard only for development
   #

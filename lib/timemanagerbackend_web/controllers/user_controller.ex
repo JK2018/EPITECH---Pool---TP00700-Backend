@@ -1,9 +1,11 @@
 defmodule TimemanagerbackendWeb.UserController do
+  require Logger
   use TimemanagerbackendWeb, :controller
   alias Timemanagerbackend.User
   alias Timemanagerbackend.Repo
 
   def index(conn, _params) do
+    Logger.info("ERROR VERIFY :  #{inspect(conn)}")
     users = Repo.all(User)
     json(conn, %{users: users})
   end

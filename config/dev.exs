@@ -1,5 +1,8 @@
 use Mix.Config
 
+# joken config
+config :joken, default_signer: "secret"
+
 # Configure your database
 config :timemanagerbackend, Timemanagerbackend.Repo,
   username: "postgres",

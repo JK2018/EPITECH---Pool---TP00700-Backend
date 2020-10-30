@@ -36,6 +36,7 @@ defmodule Timemanagerbackend.MixProject do
       {:phoenix, "~> 1.5.6"},
       {:phoenix_ecto, "~> 4.1"},
       {:ecto_sql, "~> 3.4"},
+      {:poison, "~> 3.1"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
@@ -44,6 +45,8 @@ defmodule Timemanagerbackend.MixProject do
       {:telemetry_poller, "~> 0.4"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
+      {:joken, "~> 2.0"},
+      {:faker, "~> 0.16"},
       {:plug_cowboy, "~> 2.0"}
     ]
   end
