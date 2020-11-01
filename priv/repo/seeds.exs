@@ -1,11 +1,17 @@
 alias Timemanagerbackend.Repo
 alias Timemanagerbackend.User
 alias Timemanagerbackend.Roles
+alias Timemanagerbackend.Clock
+alias Timemanagerbackend.WorkingTime
 
 boss =
   Repo.insert!(%Roles{
     label: "general_manager"
   })
+
+clock = Repo.insert!(%Clock{})
+clock2 = Repo.insert!(%Clock{})
+clock3 = Repo.insert!(%Clock{})
 
 manager =
   Repo.insert!(%Roles{
@@ -80,13 +86,27 @@ user5 =
     password: "fuckmywifeshedestroyme12345"
   })
 
+work = Repo.insert!(%WorkingTime{})
+work2 = %WorkingTime{}
+work3 = Repo.insert!(%WorkingTime{})
+worktest = Ecto.build_assoc(user2, :workingtimes, work2)
+Repo.insert!(worktest)
+
+clocked =
+  Ecto.build_assoc(clock, :users, %User{
+    username: "sqdf",
+    firstname: "qsdf",
+    lastname: "qsdf",
+    email: "sqfsqdf@amazon.com",
+    password: "fuckmywifeshedestroyme12345",
+    workingtimes: [work, work3]
+  })
+
 Repo.insert!(user)
+Repo.insert!(clocked)
+Repo.insert!(Ecto.build_assoc(clock2, :users, user5))
+Repo.insert!(Ecto.build_assoc(clock3, :users, user7))
+
 Repo.insert!(user2)
 Repo.insert!(user3)
 Repo.insert!(user4)
-Repo.insert!(user5)
-Repo.insert!(user6)
-Repo.insert!(user7)
-
-# query = from(p in Roles, where: p.label == "manager")
-# geted = Repo.get(Roles, 2)

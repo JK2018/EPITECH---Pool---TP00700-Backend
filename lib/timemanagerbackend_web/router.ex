@@ -30,17 +30,20 @@ defmodule TimemanagerbackendWeb.Router do
     scope "/api", TimemanagerbackendWeb do
       pipe_through(:authenticate)
 
-      scope "/test" do
-        get("/", TimemanagerbackendWeb.TestController, :index)
-        get("/roles", TimemanagerbackendWeb.TestController, :roles)
-      end
+      # scope "/test" do
+      get("/test", TestController, :index)
+      get("/test/roles", TestController, :roles)
+      # end
 
       resources("/users", UserController, except: [:new])
       # more routes
 
-      resources("/workingtimes", UserController, except: [:new, :index])
+      resources("/workingtimes", WorkingTimeController,
+        only: [:show, :edit, :create, :update, :delete]
+      )
 
-      resources("/clocks", ClockController, only: [:show, :create])
+      get("/clock/:id", ClockController, :show)
+      post("/clock/:id", ClockController, :toggle)
 
       # resources("/teams", TeamController, only: [:show, :create])
     end

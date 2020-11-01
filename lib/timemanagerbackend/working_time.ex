@@ -2,10 +2,12 @@ defmodule Timemanagerbackend.WorkingTime do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {Jason.Encoder, only: [:id, :end, :start]}
+
   schema "workingtimes" do
-    field :end, :utc_datetime
-    field :start, :utc_datetime
-    field :user, :id
+    field(:end, :utc_datetime_usec)
+    field(:start, :utc_datetime_usec)
+    belongs_to(:user, Timemanagerbackend.User)
 
     timestamps()
   end
