@@ -18,6 +18,13 @@ defmodule TimemanagerbackendWeb.Router do
     plug(TimemanagerbackendWeb.Plugs.Authenticate)
   end
 
+  scope "/swagger" do
+    forward("/", PhoenixSwagger.Plug.SwaggerUI,
+      otp_app: :timemanagerbackend,
+      swagger_file: "swagger.json"
+    )
+  end
+
   scope "/" do
     pipe_through(:cors_pipe)
 
@@ -38,15 +45,28 @@ defmodule TimemanagerbackendWeb.Router do
       resources("/users", UserController, except: [:new])
       # more routes
 
-      resources("/workingtimes", WorkingTimeController,
-        only: [:show, :edit, :create, :update, :delete]
-      )
+      get("/workingtimes/:userID", WorkingTimeController, :show)
+      get("/workingtimes/:userID/:workingtimeID", WorkingTimeController, :show)
+      post("/workingtimes/:userID", WorkingTimeController, :create)
+      put("/workingtimes/:id", WorkingTimeController, :update)
+      delete("/workingtimes/:id", WorkingTimeController, :delete)
+
+      # resources("/workingtimes", WorkingTimeController, only: [:edit, :create, :update, :delete])
 
       get("/clock/:id", ClockController, :show)
       post("/clock/:id", ClockController, :toggle)
 
       # resources("/teams", TeamController, only: [:show, :create])
     end
+  end
+
+  def swagger_info do
+    %{
+      info: %{
+        version: "1.0",
+        title: "TimeManager"
+      }
+    }
   end
 
   # Enables LiveDashboard only for development

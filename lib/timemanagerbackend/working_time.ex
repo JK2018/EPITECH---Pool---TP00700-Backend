@@ -5,8 +5,8 @@ defmodule Timemanagerbackend.WorkingTime do
   @derive {Jason.Encoder, only: [:id, :end, :start]}
 
   schema "workingtimes" do
-    field(:end, :utc_datetime_usec)
-    field(:start, :utc_datetime_usec)
+    field(:end, :naive_datetime)
+    field(:start, :naive_datetime)
     belongs_to(:user, Timemanagerbackend.User)
 
     timestamps()

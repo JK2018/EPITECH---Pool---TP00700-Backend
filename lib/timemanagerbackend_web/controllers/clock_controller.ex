@@ -23,7 +23,11 @@ defmodule TimemanagerbackendWeb.ClockController do
 
           clock ->
             if clock.status == false do
-              newClock = Ecto.Changeset.change(clock, status: true, time: DateTime.utc_now())
+              newClock =
+                Ecto.Changeset.change(clock,
+                  status: true,
+                  time: NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
+                )
 
               case Repo.update(newClock) do
                 {:ok, struct} ->
@@ -39,14 +43,14 @@ defmodule TimemanagerbackendWeb.ClockController do
               newUser =
                 Ecto.build_assoc(user, :workingtimes, %{
                   start: clock.time,
-                  end: DateTime.utc_now()
+                  end: NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
                 })
 
               case Repo.update(newClock) do
                 {:ok, struct} ->
                   case Repo.insert(newUser) do
                     {:ok, res} ->
-                      json(conn, %{newclock: struct, newUser: res})
+                      json(conn, %{clock: struct, workingTime: res})
 
                     {:error, changeset} ->
                       conn |> put_status(:bad_request) |> json(%{error: changeset})

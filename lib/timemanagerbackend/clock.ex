@@ -6,7 +6,7 @@ defmodule Timemanagerbackend.Clock do
 
   schema "clocks" do
     field(:status, :boolean, default: false)
-    field(:time, :utc_datetime_usec)
+    field(:time, :naive_datetime)
     has_one(:users, Timemanagerbackend.User)
 
     # timestamps()

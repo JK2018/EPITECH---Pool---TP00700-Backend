@@ -36,7 +36,7 @@ defmodule TimemanagerbackendWeb.SessionsController do
         user ->
           case Timemanagerbackend.Token.generate_and_sign(%{"email" => user.email}) do
             {:ok, oui, claims} ->
-              json(conn, %{token: oui, claims: claims, user: claims})
+              json(conn, %{token: oui, claims: claims})
 
             {:error, errors} ->
               conn |> put_status(:internal_server_error) |> json(%{error: errors})

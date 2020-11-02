@@ -7,6 +7,8 @@
 # General application configuration
 use Mix.Config
 
+config :phoenix_swagger, json_library: Jason
+
 config :timemanagerbackend,
   ecto_repos: [Timemanagerbackend.Repo]
 
@@ -17,6 +19,17 @@ config :timemanagerbackend, TimemanagerbackendWeb.Endpoint,
   render_errors: [view: TimemanagerbackendWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Timemanagerbackend.PubSub,
   live_view: [signing_salt: "SshUIB3B"]
+
+# Configures swagger
+config :timemanagerbackend, :phoenix_swagger,
+  swagger_files: %{
+    "priv/static/swagger.json" => [
+      # phoenix routes will be converted to swagger paths
+      router: TimemanagerbackendWeb.Router,
+      # (optional) endpoint config used to set host, port and https schemes.
+      endpoint: TimemanagerbackendWeb.Endpoint
+    ]
+  }
 
 # Configures Elixir's Logger
 config :logger, :console,

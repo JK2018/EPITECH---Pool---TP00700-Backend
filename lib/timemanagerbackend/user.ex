@@ -3,7 +3,17 @@ defmodule Timemanagerbackend.User do
   import Ecto.Changeset
 
   @derive {Jason.Encoder,
-           only: [:id, :firstname, :lastname, :email, :password, :workingtimes, :roles, :clock]}
+           only: [
+             :id,
+             :firstname,
+             :lastname,
+             :email,
+             :password,
+             :username,
+             :workingtimes,
+             :roles,
+             :clock
+           ]}
 
   schema "users" do
     field(:username, :string)
