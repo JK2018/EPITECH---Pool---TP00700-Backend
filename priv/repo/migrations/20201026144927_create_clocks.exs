@@ -10,6 +10,6 @@ defmodule Timemanagerbackend.Repo.Migrations.CreateClocks do
       # timestamps()
     end
 
-    create(index(:clocks, [:user_id]))
+    # create(index(:clocks, [:user_id]))
   end
 end

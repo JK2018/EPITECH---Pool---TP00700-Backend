@@ -7,7 +7,7 @@ defmodule Timemanagerbackend.Clock do
   schema "clocks" do
     field(:status, :boolean, default: false)
     field(:time, :naive_datetime)
-    has_one(:users, Timemanagerbackend.User)
+    has_one(:user, Timemanagerbackend.User)
 
     # timestamps()
   end
@@ -16,6 +16,6 @@ defmodule Timemanagerbackend.Clock do
   def changeset(clock, attrs) do
     clock
     |> cast(attrs, [:time, :status])
-    |> validate_required([:time, :status, :users])
+    |> validate_required([:time, :status, :user])
   end
 end

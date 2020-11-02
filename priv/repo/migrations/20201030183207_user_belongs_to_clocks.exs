@@ -6,6 +6,6 @@ defmodule Timemanagerbackend.Repo.Migrations.UserBelongsToClocks do
       add(:clock_id, references(:clocks))
     end
 
-    create(index(:users, [:clock_id]))
+    # create(index(:users, [:clock_id]))
   end
 end

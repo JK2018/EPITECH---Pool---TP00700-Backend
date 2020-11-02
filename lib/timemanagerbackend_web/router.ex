@@ -34,12 +34,13 @@ defmodule TimemanagerbackendWeb.Router do
       # delete("/sign_out", TimemanagerbackendWeb.SessionsController, :sign_out)
     end
 
+    get("/test", TimemanagerbackendWeb.TestController, :index)
+    get("/test/roles", TimemanagerbackendWeb.TestController, :roles)
+
     scope "/api", TimemanagerbackendWeb do
       pipe_through(:authenticate)
 
       # scope "/test" do
-      get("/test", TestController, :index)
-      get("/test/roles", TestController, :roles)
       # end
 
       resources("/users", UserController, except: [:new])
@@ -56,7 +57,12 @@ defmodule TimemanagerbackendWeb.Router do
       get("/clock/:id", ClockController, :show)
       post("/clock/:id", ClockController, :toggle)
 
-      # resources("/teams", TeamController, only: [:show, :create])
+      get("/teams", TeamController, :index)
+      get("/teams/:teamID", TeamController, :show)
+      post("/teams", TeamController, :create)
+      put("/teams/:id", TeamController, :update)
+      post("/teams/:id", TeamController, :update)
+      delete("/teams/:id", TeamController, :delete)
     end
   end
 

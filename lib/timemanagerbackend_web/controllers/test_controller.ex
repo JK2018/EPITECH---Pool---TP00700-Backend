@@ -14,7 +14,9 @@ defmodule TimemanagerbackendWeb.TestController do
   end
 
   def roles(conn, _params) do
-    role = Repo.get_by(Roles, label: "manager") |> Repo.preload(users: [:roles, :clock])
+    role =
+      Repo.get_by(Roles, label: "user") |> Repo.preload(users: [:roles, :clock, :workingtimes])
+
     json(conn, %{users: role.users})
   end
 end
