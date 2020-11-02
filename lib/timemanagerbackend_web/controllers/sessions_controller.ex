@@ -3,6 +3,7 @@ defmodule TimemanagerbackendWeb.SessionsController do
   use TimemanagerbackendWeb, :controller
   alias Timemanagerbackend.User
   alias Timemanagerbackend.Roles
+  alias Timemanagerbackend.Clock
   alias Timemanagerbackend.Repo
 
   def sign_up(conn, body_params) do
@@ -11,6 +12,7 @@ defmodule TimemanagerbackendWeb.SessionsController do
     ch =
       User.changeset(%User{}, body_params)
       |> Ecto.Changeset.put_assoc(:roles, role)
+      |> Ecto.Changeset.put_assoc(:clock, %Clock{status: false, time: nil})
 
     case Repo.insert(ch) do
       {:ok, _user} ->
