@@ -5,6 +5,7 @@ defmodule Timemanagerbackend.User do
   @derive {Jason.Encoder,
            only: [
              :id,
+             :team_id,
              :firstname,
              :lastname,
              :email,
@@ -22,7 +23,7 @@ defmodule Timemanagerbackend.User do
     field(:email, :string)
     field(:password, :string)
     has_many(:workingtimes, Timemanagerbackend.WorkingTime)
-    belongs_to(:roles, Timemanagerbackend.Roles)
+    belongs_to(:roles, Timemanagerbackend.Roles, on_replace: :nilify)
     belongs_to(:clock, Timemanagerbackend.Clock)
     belongs_to(:team, Timemanagerbackend.Team, on_replace: :nilify)
 

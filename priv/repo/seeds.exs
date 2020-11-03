@@ -11,11 +11,11 @@ boss =
   })
   |> Repo.preload(:users)
 
-# manager =
-#   Repo.insert!(%Roles{
-#     label: "manager"
-#   })
-#   |> Repo.preload(:users)
+manager =
+  Repo.insert!(%Roles{
+    label: "manager"
+  })
+  |> Repo.preload(:users)
 
 userRole =
   Repo.insert!(%Roles{
@@ -44,11 +44,11 @@ team2 =
 
 user =
   Repo.insert!(%User{
-    username: "PMax",
-    firstname: "Max",
-    lastname: "Payne",
-    email: "chinthaka@live.com",
-    password: "mdptresdur9876"
+    username: "user",
+    firstname: "user",
+    lastname: "user",
+    email: "user@user.com",
+    password: "user"
   })
   |> Repo.preload([:clock, :team, :workingtimes])
 
@@ -74,17 +74,32 @@ user3 =
 
 user4 =
   Repo.insert!(%User{
-    username: "Boser2000",
-    firstname: "Nabil",
-    lastname: "Payne",
-    email: "boser@verizon.net",
-    password: "seededpwd2"
+    username: "TheBoss",
+    firstname: "Jeff",
+    lastname: "Bezos",
+    email: "admin@admin.com",
+    password: "admin"
+  })
+  |> Repo.preload([:clock, :team, :workingtimes])
+
+user5 =
+  Repo.insert!(%User{
+    username: "SimpleManager",
+    firstname: "Jeff",
+    lastname: "Bezos",
+    email: "manager@manager.com",
+    password: "manager"
   })
   |> Repo.preload([:clock, :team, :workingtimes])
 
 userRole
 |> Ecto.Changeset.change()
 |> Ecto.Changeset.put_assoc(:users, [user, user2, user3])
+|> Repo.update!()
+
+manager
+|> Ecto.Changeset.change()
+|> Ecto.Changeset.put_assoc(:users, [user5])
 |> Repo.update!()
 
 boss

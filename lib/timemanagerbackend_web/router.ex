@@ -40,23 +40,25 @@ defmodule TimemanagerbackendWeb.Router do
     scope "/api", TimemanagerbackendWeb do
       pipe_through(:authenticate)
 
-      # scope "/test" do
-      # end
+      # User routes
+      get("/users", UserController, :index)
+      post("/users/", UserController, :create)
+      get("/users/:id", UserController, :show)
+      put("/users/:id", UserController, :update)
+      delete("/users/:id", UserController, :delete)
 
-      resources("/users", UserController, except: [:new])
-      # more routes
-
+      # Workingtimes routes
       get("/workingtimes/:userID", WorkingTimeController, :show)
       get("/workingtimes/:userID/:workingtimeID", WorkingTimeController, :show)
       post("/workingtimes/:userID", WorkingTimeController, :create)
       put("/workingtimes/:id", WorkingTimeController, :update)
       delete("/workingtimes/:id", WorkingTimeController, :delete)
 
-      # resources("/workingtimes", WorkingTimeController, only: [:edit, :create, :update, :delete])
-
+      # Clock routes
       get("/clock/:id", ClockController, :show)
       post("/clock/:id", ClockController, :toggle)
 
+      # Teams routes
       get("/teams", TeamController, :index)
       get("/teams/:id", TeamController, :show)
       post("/teams", TeamController, :create)
@@ -64,6 +66,10 @@ defmodule TimemanagerbackendWeb.Router do
       put("/teams/:id", TeamController, :update)
       delete("/teams/:id", TeamController, :delete)
       delete("/teams/:id/:userID", TeamController, :delete)
+
+      # Manage routes
+      put("/promote/:userID", ManageController, :promote)
+      put("/demote/:userID", ManageController, :demote)
     end
   end
 

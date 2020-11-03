@@ -1,5 +1,4 @@
 defmodule TimemanagerbackendWeb.SessionsController do
-  require Logger
   use TimemanagerbackendWeb, :controller
   alias Timemanagerbackend.User
   alias Timemanagerbackend.Roles
@@ -36,7 +35,10 @@ defmodule TimemanagerbackendWeb.SessionsController do
           conn |> put_status(:bad_request) |> json(%{error: "User not found."})
 
         user ->
-          case Timemanagerbackend.Token.generate_and_sign(%{"email" => user.email}) do
+          case Timemanagerbackend.Token.generate_and_sign(%{
+                 "email" => user.email,
+                 "role" => user.roles.label
+               }) do
             {:ok, oui, claims} ->
               json(conn, %{token: oui, claims: claims})
 
