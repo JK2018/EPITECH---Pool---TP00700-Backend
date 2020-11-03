@@ -42,3 +42,4 @@ lib/timemanagerbackend/repo.ex
 
 
 mix.lock
+priv/static/swagger.json

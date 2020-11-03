@@ -64,4 +64,31 @@ defmodule TimemanagerbackendWeb.UserController do
         |> render(TimemanagerbackendWeb.ErrorView, "error.json", changeset: changeset)
     end
   end
+
+  def delete(conn, %{"id" => id} = _params) do
+    case Repo.get_by(User, id: id) do
+      nil ->
+        conn
+        |> put_status(:bad_request)
+        |> json(%{error: "User not found"})
+
+      user ->
+        if conn.assigns.signed_user_role == "general_manager" or
+             conn.assigns.signed_user == elem(Integer.parse(id), 0) do
+          case Repo.delete(user) do
+            nil ->
+              conn
+              |> put_status(:internal_server_error)
+              |> json(%{error: "Suppression impossible"})
+
+            _user ->
+              json(conn, "User supprimé.")
+          end
+        else
+          conn
+          |> put_status(:unauthorized)
+          |> json(%{error: "You don't have rights to do this."})
+        end
+    end
+  end
 end

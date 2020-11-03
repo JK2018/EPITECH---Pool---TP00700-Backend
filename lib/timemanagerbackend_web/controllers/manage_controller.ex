@@ -6,11 +6,10 @@ defmodule TimemanagerbackendWeb.ManageController do
   alias Timemanagerbackend.Repo
 
   def promote(conn, %{"userID" => id} = _params) do
-    role = Repo.get_by(Roles, label: "general_manager")
     manager = Repo.get_by(Roles, label: "manager")
 
     # role = Repo.get_by(Roles, label: "general_manager")
-    if conn.assigns.signed_user_role != role.label do
+    if conn.assigns.signed_user_role != "general_manager" do
       conn
       |> put_status(:unauthorized)
       |> json(%{error: "Vous n'avez pas les droits requis pour cette action."})

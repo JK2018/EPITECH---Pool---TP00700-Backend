@@ -22,7 +22,7 @@ defmodule Timemanagerbackend.User do
     field(:lastname, :string)
     field(:email, :string)
     field(:password, :string)
-    has_many(:workingtimes, Timemanagerbackend.WorkingTime)
+    has_many(:workingtimes, Timemanagerbackend.WorkingTime, on_delete: :delete_all)
     belongs_to(:roles, Timemanagerbackend.Roles, on_replace: :nilify)
     belongs_to(:clock, Timemanagerbackend.Clock)
     belongs_to(:team, Timemanagerbackend.Team, on_replace: :nilify)

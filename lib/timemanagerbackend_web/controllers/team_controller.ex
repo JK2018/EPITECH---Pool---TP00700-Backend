@@ -107,7 +107,9 @@ defmodule TimemanagerbackendWeb.TeamController do
   def delete(conn, %{"id" => id} = _params) do
     case Repo.get_by(Team, id: id) do
       nil ->
-        json(conn, %{error: "Team not found"})
+        conn
+        |> put_status(:bad_request)
+        |> json(%{error: "Team not found"})
 
       team ->
         case Repo.delete(team) do

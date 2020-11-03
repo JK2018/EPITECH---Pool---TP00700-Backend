@@ -7,7 +7,7 @@ defmodule TimemanagerbackendWeb.Plugs.Authenticate do
   def call(conn, _default) do
     case get_auth_token(conn) do
       {:ok, _token, claims} ->
-        authorized(conn, claims["role"])
+        authorized(conn, claims["role"], claims["id"])
 
       # claims["userId"]
 
@@ -16,10 +16,10 @@ defmodule TimemanagerbackendWeb.Plugs.Authenticate do
     end
   end
 
-  defp authorized(conn, userRole) do
+  defp authorized(conn, userRole, userID) do
     conn
     |> assign(:signed_in, true)
-    # |> assign(:signed_user, userId)
+    |> assign(:signed_user, userID)
     |> assign(:signed_user_role, userRole)
   end
 
