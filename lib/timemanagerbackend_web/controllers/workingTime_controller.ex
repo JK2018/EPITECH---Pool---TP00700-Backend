@@ -1,7 +1,6 @@
 defmodule TimemanagerbackendWeb.WorkingTimeController do
   use TimemanagerbackendWeb, :controller
   import Ecto.Query
-  import Ecto.Query
   use PhoenixSwagger
   alias Timemanagerbackend.User
   alias Timemanagerbackend.WorkingTime

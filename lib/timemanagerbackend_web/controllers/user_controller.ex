@@ -5,8 +5,7 @@ defmodule TimemanagerbackendWeb.UserController do
   alias Timemanagerbackend.Repo
 
   def index(conn, _params) do
-    Logger.info("ERROR VERIFY :  #{inspect(conn)}")
-    users = Repo.all(User)
+    users = Repo.all(User) |> Repo.preload([:workingtimes, :roles, :clock])
     json(conn, %{users: users})
   end
 

@@ -58,11 +58,12 @@ defmodule TimemanagerbackendWeb.Router do
       post("/clock/:id", ClockController, :toggle)
 
       get("/teams", TeamController, :index)
-      get("/teams/:teamID", TeamController, :show)
+      get("/teams/:id", TeamController, :show)
       post("/teams", TeamController, :create)
+      put("/teams/:id/:userID", TeamController, :add)
       put("/teams/:id", TeamController, :update)
-      post("/teams/:id", TeamController, :update)
       delete("/teams/:id", TeamController, :delete)
+      delete("/teams/:id/:userID", TeamController, :delete)
     end
   end
 

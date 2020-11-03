@@ -24,7 +24,7 @@ defmodule Timemanagerbackend.User do
     has_many(:workingtimes, Timemanagerbackend.WorkingTime)
     belongs_to(:roles, Timemanagerbackend.Roles)
     belongs_to(:clock, Timemanagerbackend.Clock)
-    belongs_to(:team, Timemanagerbackend.Team)
+    belongs_to(:team, Timemanagerbackend.Team, on_replace: :nilify)
 
     timestamps()
   end

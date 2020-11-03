@@ -84,7 +84,7 @@ user4 =
 
 userRole
 |> Ecto.Changeset.change()
-|> Ecto.Changeset.put_assoc(:users, [user])
+|> Ecto.Changeset.put_assoc(:users, [user, user2, user3])
 |> Repo.update!()
 
 boss
