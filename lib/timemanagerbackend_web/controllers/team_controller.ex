@@ -26,7 +26,7 @@ defmodule TimemanagerbackendWeb.TeamController do
     case Repo.get_by(Team, id: id)
          |> Repo.preload([:users, users: [:roles, :workingtimes, :clock]]) do
       nil ->
-        json(conn, %{error: "Team not found"})
+        json(conn, %{error: "Team not found."})
 
       team ->
         json(conn, %{result: team})
@@ -41,7 +41,7 @@ defmodule TimemanagerbackendWeb.TeamController do
       team ->
         case Repo.get_by(User, id: userid) |> Repo.preload([:roles, :clock, :workingtimes]) do
           nil ->
-            json(conn, %{error: "User not found"})
+            json(conn, %{error: "User not found."})
 
           user ->
             team
@@ -58,7 +58,7 @@ defmodule TimemanagerbackendWeb.TeamController do
     case Repo.get_by(Team, id: id)
          |> Repo.preload([:users, users: [:roles, :workingtimes, :clock]]) do
       nil ->
-        json(conn, %{error: "Team not found"})
+        json(conn, %{error: "Team not found."})
 
       team ->
         newTeam =
@@ -80,15 +80,13 @@ defmodule TimemanagerbackendWeb.TeamController do
   def delete(conn, %{"id" => id, "userID" => userID} = _params) do
     case Repo.get_by(Team, id: id) do
       nil ->
-        json(conn, %{error: "Team not found"})
+        json(conn, %{error: "Team not found."})
 
       _team ->
         case Repo.get_by(User, team_id: id, id: userID)
              |> Repo.preload([:workingtimes, :roles, :clock, :team]) do
           nil ->
-            conn
-            |> put_status(:bad_request)
-            |> json(%{error: "Aucun utilisateur demandé dans cette team."})
+            conn |> json(%{error: "Aucun utilisateur demandé dans cette team."})
 
           oui ->
             newUser = Ecto.Changeset.change(oui, team: nil)
@@ -108,8 +106,7 @@ defmodule TimemanagerbackendWeb.TeamController do
     case Repo.get_by(Team, id: id) do
       nil ->
         conn
-        |> put_status(:bad_request)
-        |> json(%{error: "Team not found"})
+        |> json(%{error: "Team not found."})
 
       team ->
         case Repo.delete(team) do

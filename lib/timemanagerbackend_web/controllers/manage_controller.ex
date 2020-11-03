@@ -17,7 +17,7 @@ defmodule TimemanagerbackendWeb.ManageController do
       case Repo.get_by(User, id: id)
            |> Repo.preload([:roles, :workingtimes, :clock]) do
         nil ->
-          conn |> put_status(:bad_request) |> json(%{error: "User not found."})
+          conn |> json(%{error: "User not found."})
 
         user ->
           if user.roles.label == "user" do
@@ -34,9 +34,7 @@ defmodule TimemanagerbackendWeb.ManageController do
                 conn |> put_status(:bad_request) |> json(%{error: changeset})
             end
           else
-            conn
-            |> put_status(:bad_request)
-            |> json(%{error: "User need to be employee to be promote."})
+            conn |> json(%{error: "User need to be employee to be promote."})
           end
       end
     end
@@ -55,7 +53,7 @@ defmodule TimemanagerbackendWeb.ManageController do
       case Repo.get_by(User, id: id)
            |> Repo.preload([:roles, :workingtimes, :clock]) do
         nil ->
-          conn |> put_status(:bad_request) |> json(%{error: "User not found."})
+          conn |> json(%{error: "User not found."})
 
         user ->
           if user.roles.label == "manager" do
@@ -72,9 +70,7 @@ defmodule TimemanagerbackendWeb.ManageController do
                 conn |> put_status(:bad_request) |> json(%{error: changeset})
             end
           else
-            conn
-            |> put_status(:bad_request)
-            |> json(%{error: "User need to be manager to be demote."})
+            conn |> json(%{error: "User need to be manager to be demote."})
           end
       end
     end

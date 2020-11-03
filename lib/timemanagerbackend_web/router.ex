@@ -34,9 +34,6 @@ defmodule TimemanagerbackendWeb.Router do
       # delete("/sign_out", TimemanagerbackendWeb.SessionsController, :sign_out)
     end
 
-    get("/test", TimemanagerbackendWeb.TestController, :index)
-    get("/test/roles", TimemanagerbackendWeb.TestController, :roles)
-
     scope "/api", TimemanagerbackendWeb do
       pipe_through(:authenticate)
 

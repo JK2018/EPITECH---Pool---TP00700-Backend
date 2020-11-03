@@ -13,7 +13,7 @@ defmodule TimemanagerbackendWeb.UserController do
   def show(conn, %{"id" => id} = _params) do
     case Repo.get_by(User, id: id) |> Repo.preload([:workingtimes, :roles, :clock]) do
       nil ->
-        conn |> put_status(:bad_request) |> json(%{error: "User not found."})
+        conn |> json(%{error: "User not found."})
 
       user ->
         json(conn, %{user: user})
@@ -24,7 +24,7 @@ defmodule TimemanagerbackendWeb.UserController do
     case Repo.get_by(User, id: id)
          |> Repo.preload([:roles, :workingtimes, :clock]) do
       nil ->
-        conn |> put_status(:bad_request) |> json(%{error: "User not found."})
+        conn |> json(%{error: "User not found."})
 
       user ->
         newUser =
@@ -68,9 +68,7 @@ defmodule TimemanagerbackendWeb.UserController do
   def delete(conn, %{"id" => id} = _params) do
     case Repo.get_by(User, id: id) do
       nil ->
-        conn
-        |> put_status(:bad_request)
-        |> json(%{error: "User not found"})
+        conn |> json(%{error: "User not found"})
 
       user ->
         if conn.assigns.signed_user_role == "general_manager" or

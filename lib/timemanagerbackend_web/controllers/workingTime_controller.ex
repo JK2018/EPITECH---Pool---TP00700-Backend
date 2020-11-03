@@ -59,7 +59,7 @@ defmodule TimemanagerbackendWeb.WorkingTimeController do
 
     case Repo.get_by(User, id: id) do
       nil ->
-        json(conn, %{error: "User not found"})
+        json(conn, %{error: "User not found."})
 
       user ->
         maj = Ecto.build_assoc(user, :workingtimes, wt)
@@ -72,7 +72,7 @@ defmodule TimemanagerbackendWeb.WorkingTimeController do
   def update(conn, %{"id" => id, "start" => start, "end" => end_time} = _params) do
     case Repo.get_by(WorkingTime, id: id) do
       nil ->
-        json(conn, %{error: "WorkingTime not found"})
+        json(conn, %{error: "WorkingTime not found."})
 
       wt ->
         newWT =
@@ -95,7 +95,7 @@ defmodule TimemanagerbackendWeb.WorkingTimeController do
     repo = Repo.get_by(WorkingTime, id: id)
 
     case Repo.delete(repo) do
-      nil -> json(conn, %{error: "WorkingTime not found"})
+      nil -> json(conn, %{error: "WorkingTime not found."})
       wt -> json(conn, %{result: wt})
     end
   end

@@ -32,7 +32,7 @@ defmodule TimemanagerbackendWeb.SessionsController do
     else
       case Repo.get_by(User, email: email, password: password) |> Repo.preload(:roles) do
         nil ->
-          conn |> put_status(:bad_request) |> json(%{error: "User not found."})
+          conn |> json(%{error: "User not found."})
 
         user ->
           case Timemanagerbackend.Token.generate_and_sign(%{
