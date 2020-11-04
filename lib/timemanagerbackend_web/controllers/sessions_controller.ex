@@ -38,6 +38,7 @@ defmodule TimemanagerbackendWeb.SessionsController do
           case Timemanagerbackend.Token.generate_and_sign(%{
                  "email" => user.email,
                  "role" => user.roles.label,
+                 "username" => user.username,
                  "id" => user.id
                }) do
             {:ok, oui, claims} ->
