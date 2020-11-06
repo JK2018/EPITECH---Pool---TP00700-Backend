@@ -9,7 +9,6 @@ defmodule Timemanagerbackend.User do
              :firstname,
              :lastname,
              :email,
-             :password,
              :username,
              :workingtimes,
              :roles,
